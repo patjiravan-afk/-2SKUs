@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FRESH SMILE - ยาสีฟันสมุนไพรและคูลมิ้นท์</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800">
+
+  <!-- Navbar -->
+  <nav class="bg-teal-600 text-white p-4 shadow-md sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold tracking-wide">🦷 FRESH SMILE</h1>
+      <a href="admin.html" class="text-sm bg-teal-800 hover:bg-teal-900 px-3 py-1.5 rounded-lg transition">
+        ระบบหลังบ้าน / แพ็คสินค้า →
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="bg-gradient-to-r from-teal-500 to-emerald-500 text-white py-14 px-4 text-center">
+    <h2 class="text-3xl md:text-5xl font-extrabold mb-3">ยิ้มมั่นใจ ลมหายใจหอมสดชื่นตลอดวัน</h2>
+    <p class="text-lg opacity-90 max-w-xl mx-auto">คัดสรรสารสกัดธรรมชาติและฟลูออไรด์เข้มข้น ดูแลครบทั้งเหงือกและฟัน เลือกสูตรที่ใช่สำหรับคุณ</p>
+  </header>
+
+  <!-- Product Section (2 SKUs) -->
+  <main class="max-w-5xl mx-auto py-10 px-4">
+    <h3 class="text-2xl font-bold text-center mb-8">เลือกสินค้า (2 สูตรยอดนิยม)</h3>
+    
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+      <!-- SKU 1 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-slate-100 flex flex-col">
+        <img src="images/toothpaste-mint.jpg" alt="สูตรคูลมิ้นท์" onerror="this.src='https://placehold.co/600x400/0d9488/ffffff?text=SKU-01+Cool+Mint'" class="w-full h-60 object-cover">
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-semibold bg-teal-100 text-teal-800 px-2.5 py-1 rounded-full">SKU-01</span>
+            <h4 class="text-xl font-bold mt-2">Fresh Smile สูตรคูลมิ้นท์ (100g)</h4>
+            <p class="text-slate-600 text-sm mt-1">เย็นสดชื่นยาวนาน ลดการสะสมของแบคทีเรีย ป้องกันฟันผุ</p>
+          </div>
+          <div class="mt-6 flex items-center justify-between">
+            <span class="text-2xl font-bold text-teal-600">฿150</span>
+            <div class="flex items-center gap-3">
+              <button onclick="updateQty('sku1', -1)" class="w-8 h-8 rounded-full bg-slate-200 font-bold hover:bg-slate-300">-</button>
+              <span id="qty-sku1" class="font-bold text-lg w-6 text-center">0</span>
+              <button onclick="updateQty('sku1', 1)" class="w-8 h-8 rounded-full bg-teal-600 text-white font-bold hover:bg-teal-700">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKU 2 -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-slate-100 flex flex-col">
+        <img src="images/toothpaste-herbal.jpg" alt="สูตรสมุนไพร" onerror="this.src='https://placehold.co/600x400/059669/ffffff?text=SKU-02+Herbal+Care'" class="w-full h-60 object-cover">
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full">SKU-02</span>
+            <h4 class="text-xl font-bold mt-2">Fresh Smile สูตรสมุนไพรสกัด (100g)</h4>
+            <p class="text-slate-600 text-sm mt-1">ลดอาการเสียวฟัน ดูแลสุขภาพเหงือก ขจัดคราบชา กาแฟ</p>
+          </div>
+          <div class="mt-6 flex items-center justify-between">
+            <span class="text-2xl font-bold text-emerald-600">฿180</span>
+            <div class="flex items-center gap-3">
+              <button onclick="updateQty('sku2', -1)" class="w-8 h-8 rounded-full bg-slate-200 font-bold hover:bg-slate-300">-</button>
+              <span id="qty-sku2" class="font-bold text-lg w-6 text-center">0</span>
+              <button onclick="updateQty('sku2', 1)" class="w-8 h-8 rounded-full bg-emerald-600 text-white font-bold hover:bg-emerald-700">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Form -->
+    <div class="bg-white p-8 rounded-2xl shadow-lg max-w-2xl mx-auto border border-slate-200">
+      <h3 class="text-2xl font-bold mb-6 border-b pb-3">📦 กรอกข้อมูลจัดส่งสินค้า</h3>
+      <form id="orderForm" class="space-y-4">
+        <div class="bg-slate-100 p-4 rounded-xl flex justify-between items-center">
+          <div>
+            <p class="text-sm text-slate-500">สรุปรายการที่เลือก:</p>
+            <p id="summaryText" class="font-semibold text-slate-800">ยังไม่ได้เลือกสินค้า</p>
+          </div>
+          <div class="text-right">
+            <p class="text-sm text-slate-500">ยอดรวมสุทธิ</p>
+            <p id="totalPrice" class="text-2xl font-extrabold text-teal-600">฿0</p>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">ชื่อ-นามสกุล ผู้รับ *</label>
+          <input type="text" id="customerName" required placeholder="เช่น สมชาย ใจดี" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-teal-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">เบอร์โทรศัพท์ *</label>
+          <input type="tel" id="phone" required placeholder="เช่น 0812345678" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-teal-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">ที่อยู่จัดส่ง (บ้านเลขที่ ตำบล อำเภอ จังหวัด รหัสไปรษณีย์) *</label>
+          <textarea id="address" rows="3" required placeholder="กรอกที่อยู่ให้ครบถ้วนเพื่อความรวดเร็วในการจัดส่ง" class="w-full border rounded-lg p-2.5 focus:ring-2 focus:ring-teal-500 outline-none"></textarea>
+        </div>
+
+        <button type="submit" id="submitBtn" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3.5 rounded-xl text-lg shadow transition">
+          ยืนยันการสั่งซื้อ
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    // *** วาง URL ของ Google Apps Script Web App ตรงนี้ ***
+    const SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+
+    const products = {
+      sku1: { name: '[SKU-01] สูตรคูลมิ้นท์', price: 150, qty: 0 },
+      sku2: { name: '[SKU-02] สูตรสมุนไพร', price: 180, qty: 0 }
+    };
+
+    function updateQty(sku, change) {
+      products[sku].qty = Math.max(0, products[sku].qty + change);
+      document.getElementById(`qty-${sku}`).innerText = products[sku].qty;
+      renderSummary();
+    }
+
+    function renderSummary() {
+      let items = [];
+      let total = 0;
+      for (let key in products) {
+        if (products[key].qty > 0) {
+          items.push(`${products[key].name} x ${products[key].qty}`);
+          total += products[key].price * products[key].qty;
+        }
+      }
+      document.getElementById('summaryText').innerText = items.length ? items.join(', ') : 'ยังไม่ได้เลือกสินค้า';
+      document.getElementById('totalPrice').innerText = `฿${total}`;
+      return { itemsText: items.join(' | '), total };
+    }
+
+    document.getElementById('orderForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const { itemsText, total } = renderSummary();
+      if (total === 0) return alert('กรุณาเลือกสินค้าอย่างน้อย 1 ชิ้นครับ');
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerText = 'กำลังบันทึกคำสั่งซื้อ...';
+
+      const payload = {
+        action: 'create',
+        customerName: document.getElementById('customerName').value,
+        phone: document.getElementById('phone').value,
+        address: document.getElementById('address').value,
+        items: itemsText,
+        totalPrice: total
+      };
+
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        alert('สั่งซื้อสำเร็จ! ข้อมูลถูกบันทึกลง Google Sheets เรียบร้อยแล้ว');
+        document.getElementById('orderForm').reset();
+        products.sku1.qty = 0; products.sku2.qty = 0;
+        updateQty('sku1', 0); updateQty('sku2', 0);
+      } catch (err) {
+        alert('เกิดข้อผิดพลาดในการเชื่อมต่อ: ' + err);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = 'ยืนยันการสั่งซื้อ';
+      }
+    });
+  </script>
+</body>
+</html>
